@@ -149,7 +149,7 @@ def get_labels_from_tfdataset(tfdataset, batched=False):
         return tf.concat(labels, axis=0) # concat the list of batched labels
     return labels
 
-final = get_labels_from_tfdataset(val_ds)
+final = get_labels_from_tfdataset(test_ds)
 final = np.array(final)
 
 accuracy = vit.evaluate(test_ds)
@@ -170,8 +170,8 @@ print(precision_recall_fscore_support(final, y_pred, average = None))
 print(zero_one_loss(final, y_pred))
          
 # summarize history for accuracy
-plt.plot(history.history['accuracy'])
-plt.plot(history.history['val_accuracy'])
+plt.plot(history.history['acc'])
+plt.plot(history.history['val_acc'])
 plt.title('model accuracy')
 plt.ylabel('accuracy')
 plt.xlabel('epoch')
