@@ -164,11 +164,29 @@ f, ax = plt.subplots(figsize=(8,5))
 sns.heatmap(confusion_matrix(final, y_pred), annot=True, fmt=".0f", ax=ax)
 plt.xlabel("y_pred")
 plt.ylabel("y_true")
+plt.save('/content/cf.png")
 plt.show()
-
-
 print(precision_recall_fscore_support(final, y_pred, average = None))
 print(zero_one_loss(final, y_pred))
+         
+# summarize history for accuracy
+plt.plot(history.history['accuracy'])
+plt.plot(history.history['val_accuracy'])
+plt.title('model accuracy')
+plt.ylabel('accuracy')
+plt.xlabel('epoch')
+plt.legend(['Train', 'Validation'], loc='upper left')
+plt.savefig('/content/train.png')
+plt.show()
+# summarize history for loss
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.title('model loss')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['Train', 'Validation'], loc='upper left')
+plt.savefig('/content/test.png')
+plt.show()
 
 
 if args.save_training_stats:
