@@ -149,17 +149,17 @@ pred = vit.predict(test_ds)
 y_pred = np.argmax(pred, axis=1)
 y_true = np.argmax(pred, axis=1)
 print('confusion matrix')
-print(confusion_matrix(y_true, y_pred))
+print(confusion_matrix(test_ds.classes, y_pred))
     #confusion matrix
 f, ax = plt.subplots(figsize=(8,5))
-sns.heatmap(confusion_matrix(y_true, y_pred), annot=True, fmt=".0f", ax=ax)
+sns.heatmap(confusion_matrix(test_ds.classes, y_pred), annot=True, fmt=".0f", ax=ax)
 plt.xlabel("y_pred")
 plt.ylabel("y_true")
 plt.show()
 
 
-print(precision_recall_fscore_support(y_true, y_pred, average = None))
-print(zero_one_loss(y_true, y_pred))
+print(precision_recall_fscore_support(test_ds.classes, y_pred, average = None))
+print(zero_one_loss(test_ds.classes, y_pred))
 
 
 if args.save_training_stats:
