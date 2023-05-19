@@ -143,23 +143,32 @@ history = vit.fit(train_ds,
 
 print(os.linesep)
 
+def get_labels_from_tfdataset(tfdataset, batched=False):
+    labels = list(map(lambda x: x[1], tfdataset)) # Get labels 
+    if not batched:
+        return tf.concat(labels, axis=0) # concat the list of batched labels
+    return labels
+
+final = get_labels_from_tfdataset(val_ds)
+final = np.array(final)
+
 accuracy = vit.evaluate(test_ds)
 print('n', 'Test_Accuracy:-', accuracy[1])
 pred = vit.predict(test_ds)
 y_pred = np.argmax(pred, axis=1)
 y_true = np.argmax(pred, axis=1)
 print('confusion matrix')
-print(confusion_matrix(test_ds.classes, y_pred))
+print(confusion_matrix(tfinal, y_pred))
     #confusion matrix
 f, ax = plt.subplots(figsize=(8,5))
-sns.heatmap(confusion_matrix(test_ds.classes, y_pred), annot=True, fmt=".0f", ax=ax)
+sns.heatmap(confusion_matrix(final, y_pred), annot=True, fmt=".0f", ax=ax)
 plt.xlabel("y_pred")
 plt.ylabel("y_true")
 plt.show()
 
 
-print(precision_recall_fscore_support(test_ds.classes, y_pred, average = None))
-print(zero_one_loss(test_ds.classes, y_pred))
+print(precision_recall_fscore_support(final, y_pred, average = None))
+print(zero_one_loss(final, y_pred))
 
 
 if args.save_training_stats:
